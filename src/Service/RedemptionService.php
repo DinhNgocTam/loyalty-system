@@ -14,9 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final class RedemptionService
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager)
-    {
-    }
+    public function __construct(private readonly EntityManagerInterface $entityManager) {}
 
     /**
      * @return array{redemption_id:int,member_id:int,gift_id:int,points_used:int,wallet_balance:int,gift_stock:int,status:string}
@@ -76,7 +74,7 @@ final class RedemptionService
             $redemption->setStatus(Redemption::STATUS_FULFILLED);
 
             $negativePoint = -$pointCost;
-            $point = new Point($negativePoint, sprintf('Redeem gift #%d', $giftId));
+            $point = new Point($negativePoint, sprintf('Redeem gift: %s', $gift->getGiftName()));
             $point->setRedemption($redemption);
             $wallet->addPoint($point);
 
